@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import copy from 'rollup-plugin-copy';
 import build from './build';
 
 export default Object.assign(build, {
@@ -8,12 +6,5 @@ export default Object.assign(build, {
         file: 'dist/js/loom.js',
         format: 'umd',
         inlineDynamicImports: true
-    }),
-    plugins: [
-        copy({
-            targets: [
-                { src: 'demo/index.html', dest: 'dist' }
-            ]
-        })
-    ]
+    })
 });
