@@ -1,3 +1,5 @@
 export default `
-<form class="loom"></form>
+<div id="app">
+    <form id="form"></form>
+</div>
 `
