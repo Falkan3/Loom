@@ -1,0 +1,98 @@
+@use "../../utils/variables";
+
+/*
+ * Bounce up
+ */
+
+@keyframes bounceUp1 {
+	0% {
+		transform: translateY(0);
+	}
+
+	30% {
+		transform: translateY(-50%);
+	}
+
+	50% {
+		transform: translateY(0);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes bounceUp2 {
+	0% {
+		transform: translateY(0);
+	}
+
+	40% {
+		transform: translateY(-50%);
+	}
+
+	60% {
+		transform: translateY(0);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes bounceUp3 {
+	0% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-50%);
+	}
+
+	70% {
+		transform: translateY(0);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@mixin bounceUp() {
+	@extend %animated;
+
+	animation-timing-function: ease;
+	animation-iteration-count: infinite;
+}
+
+@mixin bounceUp1() {
+	@include bounceUp;
+
+	animation-name: bounceUp1;
+}
+
+@mixin bounceUp2() {
+	@include bounceUp;
+
+	animation-name: bounceUp2;
+}
+
+@mixin bounceUp3() {
+	@include bounceUp;
+
+	animation-name: bounceUp3;
+}
+
+#{variables.$classPrefix} {
+	&__bounce-up1 {
+		@include bounceUp1;
+	}
+
+	&__bounce-up2 {
+		@include bounceUp2;
+	}
+
+	&__bounce-up3 {
+		@include bounceUp3;
+	}
+}

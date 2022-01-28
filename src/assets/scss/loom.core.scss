@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+@use "utils/variables";
+@use "utils/mixins/media-query";
+@use "utils/mixins/font-size";
+@use "utils/mixins/palette";
+@use "libs/decimal-round";
+
+@import "utils/animations";
+
+/* ------------------------------------------
+ *  Libraries - normalize element appearance
+ *  under the root element
+ * ----------------------------------------- */
+
+#{variables.$classPrefix} {
+
+}
+
+/* -----------------------------------
+ *  Global
+ * ----------------------------------- */
+
+/* -----------------------------------
+ *  Root
+ * ----------------------------------- */
+
+#{variables.$classPrefix} {
+
+}

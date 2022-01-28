@@ -1,0 +1,185 @@
+@use "utils/variables";
+@use "utils/mixins";
+@use "sass:meta";
+@use "sass:color";
+
+/* -----------------------------------
+ *  Components
+ * ----------------------------------- */
+
+#{variables.$classPrefix} {
+
+}
+
+/* -----------------------------------
+ *  Demo styles
+ * ----------------------------------- */
+
+$themeColor: #8760ff;
+
+* {
+	box-sizing: border-box;
+}
+
+/* normalize focus outline effect */
+input,
+textarea,
+button,
+a {
+	&:focus {
+		outline: dashed 2px $themeColor;
+		outline-offset: 2px;
+	}
+}
+
+html {
+	font-size: 16px;
+	line-height: 1.4;
+
+	@include mixins.medium-devices {
+		font-size: 15px;
+	}
+
+	@include mixins.x-small-devices {
+		font-size: 14px;
+	}
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
+	font-family: 'Open Sans', sans-serif;
+	white-space: normal;
+	word-break: break-word;
+}
+
+p {
+	line-height: 1.6;
+}
+
+.demo {
+	@import 'libs/normalize';
+
+	.wrapper {
+		max-width: 26rem;
+		padding: 2rem;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 24px;
+	}
+
+	.input-wrapper {
+		position: relative;
+		margin-bottom: 2rem;
+	}
+
+	label {
+		position: absolute;
+		left: 0.7rem;
+		top: 0;
+		transform: translateY(-50%);
+		max-width: 100%;
+		font-size: 0.8rem;
+		line-height: 1;
+		background-color: #fff;
+		padding: 0 0.3rem;
+	}
+
+	input {
+		width: 100%;
+		padding: 0.8rem 1rem;
+		border: solid 2px #f3f3f3;
+		border-radius: 4px;
+		transition: border-color cubic-bezier(.16, .87, .25, .91) 0.3s, color cubic-bezier(.16, .87, .25, .91) 0.3s;
+
+		&.loom-error {
+			border-color: mixins.get-palette-hue('danger', 500);
+			color: mixins.get-palette-hue('danger', 500);
+		}
+
+		&.loom-success {
+			border-color: mixins.get-palette-hue('success', 500);
+			color: mixins.get-palette-hue('success', 500);
+		}
+	}
+
+	button {
+		display: block;
+		width: 100%;
+		padding: 0.8rem 1rem;
+		border: none;
+		border-radius: 4px;
+		background-color: $themeColor;
+		line-height: 1;
+		color: color.mix(#fff, $themeColor, 90%);
+		box-shadow: transparentize($themeColor, 0.4) 3px 5px 15px;
+		cursor: pointer;
+		transition: background-color cubic-bezier(.16, .87, .25, .91) 0.3s;
+
+		&:hover, &:focus {
+			background-color: lighten($themeColor, 5%);
+		}
+	}
+
+	.rules {
+		&__list {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			margin: -0.5rem;
+			padding: 0;
+			font-size: 0.8rem;
+			color: #504848;
+			list-style: none;
+
+			&-label {
+				color: #504848;
+				font-size: 0.9rem;
+			}
+
+			&-item {
+				display: flex;
+				flex: 1 0 50%;
+				width: 50%;
+				padding: 0.5rem;
+			}
+
+			&-icon {
+				display: block;
+				align-self: center;
+				width: 12px;
+				height: 12px;
+				margin-right: 0.5rem;
+				border-radius: 50%;
+				background-color: #ddd;
+				transition: background-color cubic-bezier(.16, .87, .25, .91) 0.3s;
+				box-shadow: transparentize(#ddd, 0.4) 1px 1px 5px;
+
+				&.loom-success {
+					background-color: mixins.get-palette-hue('success', 500);
+					box-shadow: transparentize(mixins.get-palette-hue('success', 500), 0.4) 1px 1px 5px;
+				}
+				&.loom-error {
+					background-color: mixins.get-palette-hue('danger', 500);
+					box-shadow: transparentize(mixins.get-palette-hue('danger', 500), 0.4) 1px 1px 5px;
+				}
+			}
+		}
+	}
+
+	.m {
+		&-t {
+			margin-top: 1rem;
+		}
+
+		&-b {
+			margin-bottom: 1rem;
+
+			&--hf {
+				margin-bottom: 0.5rem;
+			}
+		}
+	}
+}

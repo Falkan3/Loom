@@ -1,0 +1,35 @@
+@use "../utils/variables";
+
+/*
+ * Animation mixins
+ */
+
+:root {
+	--#{variables.$variablePrefix}-animate-duration: 1s;
+	--#{variables.$variablePrefix}-animate-delay: 1s;
+	--#{variables.$variablePrefix}-animate-repeat: 1;
+}
+
+%animated {
+	animation-duration: var(--#{variables.$variablePrefix}-animate-duration);
+	animation-fill-mode: both;
+}
+
+#{variables.$classPrefix} {
+	&__anim-timing {
+		&--third {
+			animation-duration: calc(var(--#{variables.$variablePrefix}-animate-duration) * 0.3);
+		}
+
+		&--half {
+			animation-duration: calc(var(--#{variables.$variablePrefix}-animate-duration) * 0.5);
+		}
+	}
+}
+
+@import "animations/bounce-in-left";
+@import "animations/fade-in";
+@import "animations/appear";
+@import "animations/appear-bottom";
+@import "animations/slide-in-bottom";
+@import "animations/bounce-up";

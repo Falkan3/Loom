@@ -1,0 +1,40 @@
+/* PREFIXES */
+$classPrefix: ".loom";
+$variablePrefix: "loom";
+
+/* FONT */
+$fontSizeUnit: "rem";
+$fontSizePx: 16; // in px
+$fontSizeRem: 1; // in rem;
+
+$palette: (
+	success: (
+		100: #68be87,
+		300: #3dac65,
+		500: #139a43,
+		700: #107f37,
+		900: #0d632b
+	),
+	warning: (
+		100: #f8e398,
+		300: #f6db7b,
+		500: #f4d35e,
+		700: #c8ad4d,
+		900: #9c873c
+	),
+	danger: (
+		100: #fb6466,
+		300: #fb5355,
+		500: #fb4245,
+		700: #e53c3f,
+		900: #ce3739
+	)
+);
+
+/* RESPONSIVE BREAKPOINTS */
+$media-xs: 480;
+$media-ms: 768;
+$media-sm: 992;
+$media-md: 1200;
+$media-lg: 1400;
+$media-xl: 1600;

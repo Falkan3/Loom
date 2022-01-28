@@ -1,0 +1,35 @@
+@use "../../utils/variables";
+
+/*
+ * Appear
+ */
+
+@keyframes appear {
+	from,
+	to {
+		animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	}
+
+	0% {
+		opacity: 0;
+		transform: scale(0.8, 0.8);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: scale(1, 1);
+		transform: scale(1, 1);
+	}
+}
+
+@mixin appear() {
+	@extend %animated;
+
+	animation-name: appear;
+}
+
+#{variables.$classPrefix} {
+	&__appear {
+		@include appear;
+	}
+}

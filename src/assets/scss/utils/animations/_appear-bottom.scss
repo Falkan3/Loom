@@ -1,0 +1,34 @@
+@use "../../utils/variables";
+
+/*
+ * Appear from the bottom
+ */
+
+@keyframes appearBottom {
+	from,
+	to {
+		animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	}
+
+	0% {
+		opacity: 0;
+		transform: translate3d(0, 100%, 0) scale(0.8, 0.8);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1, 1);
+	}
+}
+
+@mixin appearBottom() {
+	@extend %animated;
+
+	animation-name: appearBottom;
+}
+
+#{variables.$classPrefix} {
+	&__appear-bottom {
+		@include appearBottom;
+	}
+}

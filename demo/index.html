@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Meta -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Test</title>
+
+<!-- Assets -->
+<link rel="stylesheet" href="../dist/css/loom.core.css">
+<link rel="stylesheet" href="../dist/css/loom.theme.css">
+<script src="../dist/js/loom.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demo">
+	<form id="form" novalidate>
+		<div class="wrapper">
+			<div class="input-wrapper">
+				<label for="name">Name</label>
+				<input id="name" type="text" data-loom-rules="required|minLength:6" />
+
+				<div class="rules">
+					<p class="rules__list-label m-t m-b--hf">Name must contain:</p>
+					<ul class="rules__list">
+						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="name" data-loom-bind-rules="minLength"></span>min. 6 characters</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="input-wrapper">
+				<label for="name">Email</label>
+				<input id="email" type="email" data-loom-rules="required|email" />
+			</div>
+
+			<div class="input-wrapper">
+				<label for="name">Password</label>
+				<input id="password" type="password" name="password" data-loom-rules="required|minLength:8|hasLowerCase|hasUpperCase|hasNumbers" />
+
+				<div class="rules">
+					<p class="rules__list-label m-t m-b--hf">Password must contain:</p>
+					<ul class="rules__list">
+						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="password" data-loom-bind-rules="hasLowerCase"></span>lower-case</li>
+						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="password" data-loom-bind-rules="hasUpperCase"></span>upper-case</li>
+						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="password" data-loom-bind-rules="hasNumbers"></span>numbers</li>
+						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="password" data-loom-bind-rules="minLength"></span>min. 8 characters</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--<div class="input-wrapper">-->
+			<!--	<label for="name">Password confirmation</label>-->
+			<!--	<input id="passwordConfirmation" type="password" name="password_confirmation" data-loom-rules="required" />-->
+			<!--</div>-->
+
+			<button type="submit">Submit</button>
+		</div>
+	</form>
+</div>
+
+<script>
+	const loom = new Loom(document.querySelector('#form'), {});
+	loom.mount();
+	// loom._components.ComponentName.function();
+</script>
+</body>
+</html>

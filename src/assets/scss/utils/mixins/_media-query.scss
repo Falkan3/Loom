@@ -1,0 +1,189 @@
+@use "../../utils/variables";
+
+/* --- min --- */
+
+@mixin media-query-up($media-w) {
+	@media (min-width: #{$media-w}px) {
+		@content;
+	}
+}
+
+/* -- */
+
+@mixin min-x-small-devices() {
+	@media (min-width: #{variables.$media-xs}px) {
+		@content;
+	}
+}
+
+@mixin min-m-small-devices() {
+	@media (min-width: #{variables.$media-ms}px) {
+		@content;
+	}
+}
+
+@mixin min-small-devices() {
+	@media (min-width: #{variables.$media-sm}px) {
+		@content;
+	}
+}
+
+@mixin min-medium-devices() {
+	@media (min-width: #{variables.$media-md}px) {
+		@content;
+	}
+}
+
+@mixin min-large-devices() {
+	@media (min-width: #{variables.$media-lg}px) {
+		@content;
+	}
+}
+
+@mixin min-x-large-devices() {
+	@media (min-width: #{variables.$media-xl}px) {
+		@content;
+	}
+}
+
+/* --- max --- */
+
+@mixin media-query-down($media-w) {
+	@media (max-width: #{$media-w - 0.02}px) {
+		@content;
+	}
+}
+
+/* -- */
+
+@mixin x-small-devices() {
+	@media (max-width: #{variables.$media-xs - 1}px) {
+		@content;
+	}
+}
+
+@mixin m-small-devices() {
+	@media (max-width: #{variables.$media-ms - 1}px) {
+		@content;
+	}
+}
+
+@mixin small-devices() {
+	@media (max-width: #{variables.$media-sm - 1}px) {
+		@content;
+	}
+}
+
+@mixin medium-devices() {
+	@media (max-width: #{variables.$media-md - 1}px) {
+		@content;
+	}
+}
+
+@mixin large-devices() {
+	@media (max-width: #{variables.$media-lg - 1}px) {
+		@content;
+	}
+}
+
+@mixin x-large-devices() {
+	@media (max-width: #{variables.$media-xl - 1}px) {
+		@content;
+	}
+}
+
+/* --- between --- */
+
+@mixin media-query-between($media-w-min, $media-w-max) {
+	@media (min-width: #{$media-w-min}px) and (max-width: #{$media-w-max - 0.02}px) {
+		@content;
+	}
+}
+
+/* --- responsive media queries generator */
+
+@mixin generate-responsive-media-queries($suffix: null) {
+	&-x-sm {
+		@if ($suffix == null) {
+			@include x-small-devices() {
+				@content;
+			}
+		} @else {
+			&-#{$suffix} {
+				@include x-small-devices() {
+					@content;
+				}
+			}
+		}
+	}
+
+	&-m-sm {
+		@if ($suffix == null) {
+			@include m-small-devices() {
+				@content;
+			}
+		} @else {
+			&-#{$suffix} {
+				@include m-small-devices() {
+					@content;
+				}
+			}
+		}
+	}
+
+	&-sm {
+		@if ($suffix == null) {
+			@include small-devices() {
+				@content;
+			}
+		} @else {
+			&-#{$suffix} {
+				@include small-devices() {
+					@content;
+				}
+			}
+		}
+	}
+
+	&-md {
+		@if ($suffix == null) {
+			@include medium-devices() {
+				@content;
+			}
+		} @else {
+			&-#{$suffix} {
+				@include medium-devices() {
+					@content;
+				}
+			}
+		}
+	}
+
+	&-lg {
+		@if ($suffix == null) {
+			@include large-devices() {
+				@content;
+			}
+		} @else {
+			&-#{$suffix} {
+				@include large-devices() {
+					@content;
+				}
+			}
+		}
+	}
+
+	&-x-lg {
+		@if ($suffix == null) {
+			@include x-large-devices() {
+				@content;
+			}
+		} @else {
+			&-#{$suffix} {
+				@include x-large-devices() {
+					@content;
+				}
+			}
+		}
+	}
+}

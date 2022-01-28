@@ -1,0 +1,13 @@
+@use "../variables";
+
+@function get-palette-hue-indexes($category) {
+	$selectedCategory: map-get(variables.$palette, $category);
+
+	@return map-keys($selectedCategory);
+}
+
+@function get-palette-hue($category, $hue) {
+	$selectedCategory: map-get(variables.$palette, $category);
+
+	@return map-get($selectedCategory, $hue);
+}

@@ -1,0 +1,87 @@
+@use "../variables";
+@use "../../libs/decimal-round";
+
+@function get-font-size($modifier: null, $returnUnit: null, $addUnit: true) {
+	$size: variables.$fontSizePx;
+	$sizeBase: variables.$fontSizePx;
+	$unit: "px";
+
+	@if (variables.$fontSizeUnit == "px") {
+		$sizeBase: variables.$fontSizePx;
+		$unit: "px";
+		$size: $sizeBase;
+
+		@if ($modifier) {
+			@if ($returnUnit == "%") {
+				$size: percentage($modifier);
+				$addUnit: false;
+			} @else {
+				$size: decimal-round.decimal-round($modifier * $sizeBase, 2);
+			}
+		}
+	} @else if (variables.$fontSizeUnit == "rem") {
+		$sizeBase: variables.$fontSizeRem;
+		$unit: "em"; // em for child elements, rem only for root
+		$size: $sizeBase;
+
+		@if ($modifier) {
+			$size: decimal-round.decimal-round($modifier * $sizeBase, 2);
+		}
+	}
+
+	@if ($addUnit) {
+		@return $size + $unit;
+	}
+
+	@return $size;
+}
+
+@function get-font-size-core($customFontSizeUnit: null) {
+	/* use default fontSizeUnit from settings */
+	$fontSizeUnit: variables.$fontSizeUnit;
+
+	/* force specified fontSizeUnit */
+	@if ($customFontSizeUnit) {
+		$fontSizeUnit: $customFontSizeUnit;
+	}
+
+	/* em for child elements, rem and px only for root */
+	@if ($customFontSizeUnit == "px") {
+		@return variables.$fontSizePx + "px";
+	} @else if ($customFontSizeUnit == "rem") {
+		@return variables.$fontSizeRem + "rem";
+	} @else if ($customFontSizeUnit == "em") {
+		@return variables.$fontSizeRem + "em";
+	}
+
+	@return variables.$fontSizePx + "px";
+}
+
+@function get-font-size-core-raw($customFontSizeUnit: null) {
+	/* use default fontSizeUnit from settings */
+	$fontSizeUnit: variables.$fontSizeUnit;
+
+	/* force specified fontSizeUnit */
+	@if ($customFontSizeUnit) {
+		$fontSizeUnit: $customFontSizeUnit;
+	}
+
+	/* em for child elements, rem and px only for root */
+	@if ($fontSizeUnit == "px") {
+		@return variables.$fontSizePx;
+	} @else if ($fontSizeUnit == "rem") {
+		@return variables.$fontSizeRem;
+	} @else if ($fontSizeUnit == "em") {
+		@return variables.$fontSizeRem;
+	}
+
+	@return variables.$fontSizePx;
+}
+
+@function get-font-size-scaled($fontSizeUnit, $scale: 1) {
+	@return decimal-round.decimal-floor(get-font-size-core-raw($fontSizeUnit) * $scale);
+}
+
+@function get-font-size-unit() {
+	@return variables.$fontSizeUnit;
+}

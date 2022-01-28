@@ -1,0 +1,45 @@
+{
+    "extends": "airbnb",
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "env": {
+        "mocha": true,
+        "browser": true,
+        "jest": true
+    },
+    "rules": {
+        "comma-dangle": [
+            "error",
+            "only-multiline"
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "indent": [
+            1,
+            4,
+            {
+                "MemberExpression": 0
+            }
+        ],
+        "semi": [
+            1,
+            "always"
+        ],
+        "no-param-reassign": "warn",
+        "no-plusplus": "off",
+        "no-underscore-dangle": [
+            "warn",
+            {
+                "allowAfterThis": true
+            }
+        ],
+        "no-unused-vars": "warn",
+        "prefer-object-spread": "warn",
+        "max-len": ["error", {"code": 100, "ignoreTemplateLiterals": true, "ignoreStrings": true}]
+    }
+}

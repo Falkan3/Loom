@@ -1,0 +1,106 @@
+{
+    "name": "@falkan3/loom",
+    "version": "0.0.1",
+    "description": "A form validation library.",
+    "author": "Adam Kocić (Falkan3)",
+    "homepage": "https://github.com/Falkan3/loom#readme",
+    "main": "dist/js/loom.js",
+    "module": "dist/js/esm/modular/loom.esm.js",
+    "unpkg": "dist/js/loom.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Falkan3/loom.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/@Falkan3"
+    },
+    "bugs": {
+        "url": "https://github.com/Falkan3/loom/issues"
+    },
+    "license": "GPL-3.0-or-later",
+    "keywords": [
+        "form",
+        "validation",
+        "library",
+        "plugin"
+    ],
+    "scripts": {
+        "clean": "rimraf dist",
+        "test": "jest \"tests/.*/.*\\.test\\.js\" --config jest.config.js",
+        "lint": "eslint {src,tests}/**/*.js",
+        "lint:base": "eslint src tests",
+        "lint:fix": "eslint {src,tests}/**/*.js --fix",
+        "stylelint": "stylelint src/assets/scss",
+        "stylelint:fix": "stylelint src/assets/scss --fix",
+        "scss:core": "sass src/assets/scss/loom.core.scss dist/css/loom.core.css && sass src/assets/scss/loom.core.scss dist/css/loom.core.min.css --style=compressed",
+        "scss:theme": "sass src/assets/scss/loom.theme.scss dist/css/loom.theme.css && sass src/assets/scss/loom.theme.scss dist/css/loom.theme.min.css --style=compressed",
+        "build:css": "npm run scss:core && npm run scss:theme",
+        "build:esm": "rollup --config build/esm.js && rollup --config build/esm.modular.js",
+        "build:umd": "rollup --config build/umd.js && rollup --config build/umd.min.js",
+        "build:js": "npm run build:esm && npm run build:umd",
+        "build": "npm run build:css && npm run build:js",
+        "build--deprecated": "cross-env BABEL_ENV=production babel src --out-dir dist",
+        "prepublish": "npm run clean && npm run test && npm run build"
+    },
+    "watch": {
+        "test": "{src,tests}/**/*.js",
+        "build:js": "src/**/*.js",
+        "build:css": "assets/**/*.scss"
+    },
+    "files": [
+        "src",
+        "dist"
+    ],
+    "devDependencies": {
+        "@babel/cli": "^7.15.7",
+        "@babel/core": "^7.15.8",
+        "@babel/eslint-parser": "^7.15.8",
+        "@babel/plugin-external-helpers": "^7.14.5",
+        "@babel/plugin-proposal-class-properties": "^7.14.5",
+        "@babel/plugin-transform-flow-strip-types": "^7.14.5",
+        "@babel/plugin-transform-object-assign": "^7.14.5",
+        "@babel/plugin-transform-runtime": "^7.15.8",
+        "@babel/preset-env": "^7.15.8",
+        "@babel/register": "^7.15.3",
+        "@babel/runtime-corejs3": "^7.15.4",
+        "@glidejs/glide": "^3.4.1",
+        "babel-jest": "^27.3.1",
+        "babel-plugin-add-module-exports": "^1.0.4",
+        "babel-plugin-module-resolver": "^4.1.0",
+        "babel-preset-minify": "^0.5.1",
+        "chai": "^4.3.4",
+        "compress-tag": "^2.0.1",
+        "core-js": "^3.18.3",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.2.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-plugin-import": "^2.25.2",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-react": "^7.26.1",
+        "jest": "^27.3.1",
+        "jsdom": "^18.0.0",
+        "npm-watch": "^0.11.0",
+        "nyc": "^15.1.0",
+        "rimraf": "^3.0.2",
+        "rollup": "^2.58.0",
+        "rollup-plugin-babel": "^4.3.2",
+        "rollup-plugin-uglify": "^6.0.4",
+        "sass": "^1.43.2",
+        "stylelint": "^13.13.1",
+        "stylelint-config-standard": "^22.0.0",
+        "stylelint-scss": "^3.21.0",
+        "throttle-debounce": "^3.0.1"
+    },
+    "abandonedDependencies": {
+        "xstream": "^11.12.0",
+        "@cycle/dom": "^22.7.0",
+        "@cycle/run": "^5.4.0",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "yargs": "^16.1.1",
+        "@babel/plugin-transform-runtime": "^7.12.1"
+    },
+    "directories": {
+        "test": "tests"
+    }
+}
