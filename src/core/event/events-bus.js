@@ -1,7 +1,8 @@
 /* eslint-disable import/no-unresolved */
 import { isArray } from '@utils/types';
 
-export default class EventsBus {
+// eslint-disable-next-line import/prefer-default-export
+export class EventsBus {
     /**
      * Construct a EventBus instance.
      *

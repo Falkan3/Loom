@@ -2,7 +2,7 @@
 import { warn } from '@utils/log';
 import { mergeOptions } from '@utils/object';
 import { isArray, isObject } from '@utils/types';
-import EventsBus from '@core/event/events-bus';
+import { EventsBus } from '@core/event/events-bus';
 import { mount } from '@core/index.js';
 import defaults from './defaults';
 
