@@ -39,7 +39,7 @@
         "build:umd": "rollup --config build/umd.js && rollup --config build/umd.min.js",
         "build:js": "npm run build:esm && npm run build:umd",
         "build:demo": "shx cp demo/netlify.html dist/index.html",
-        "build": "npm run build:css && npm run build:js && build:demo",
+        "build": "npm run build:css && npm run build:js && npm run build:demo",
         "build--deprecated": "cross-env BABEL_ENV=production babel src --out-dir dist",
         "prepublish": "npm run clean && npm run test && npm run build"
     },
