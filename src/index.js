@@ -121,7 +121,7 @@ export default class Loom {
         // destroy events bus
         this._eventsBus.destroy();
         // remove root element
-        this.rootElement.querySelector(`.${this.settings.classes.root}`).remove();
+        this.rootElement.remove();
 
         return this;
     }
