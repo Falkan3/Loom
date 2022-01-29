@@ -303,6 +303,11 @@ export default function (Loom, Components, Events) {
      * - on destroying to remove listeners
      */
     Events.on(['destroy'], () => {
+        // Remove classes
+        Loom.rootElement.classList.remove(
+            Loom.settings.classes.root,
+            ...Loom.settings.modifierClasses.root
+        );
         Binder.destroy();
     });
 

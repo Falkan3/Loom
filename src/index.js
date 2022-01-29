@@ -120,8 +120,6 @@ export default class Loom {
         this._eventsBus.emit('destroy:after');
         // destroy events bus
         this._eventsBus.destroy();
-        // remove root element
-        this.rootElement.remove();
 
         return this;
     }
