@@ -1,3 +1,6 @@
+/* eslint-disable import/no-unresolved */
+import { isEmpty } from '@utils/string';
+
 /**
  * Converts value entered as number
  * or string to integer value.
@@ -72,6 +75,16 @@ export function isFunction(value) {
  */
 export function isUndefined(value) {
     return typeof value === 'undefined';
+}
+
+/**
+ * Indicates whether the specified value is undefined or has no value.
+ *
+ * @param  {*} value
+ * @return {Boolean}
+ */
+export function isUndefinedOrEmpty(value) {
+    return typeof value === 'undefined' || value === null || isEmpty(value);
 }
 
 /**
