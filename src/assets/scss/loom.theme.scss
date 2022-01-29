@@ -24,6 +24,7 @@ $themeColor: #8760ff;
 /* normalize focus outline effect */
 input,
 textarea,
+select,
 button,
 a {
 	&:focus {
@@ -75,7 +76,7 @@ p {
 		margin-bottom: 2rem;
 	}
 
-	label {
+	.label-floating {
 		position: absolute;
 		left: 0.7rem;
 		top: 0;
@@ -87,7 +88,7 @@ p {
 		padding: 0 0.3rem;
 	}
 
-	input {
+	.input-floating {
 		width: 100%;
 		padding: 0.8rem 1rem;
 		border: solid 2px #f3f3f3;
@@ -181,5 +182,17 @@ p {
 				margin-bottom: 0.5rem;
 			}
 		}
+
+		&-l {
+			margin-left: 1rem;
+
+			&--hf {
+				margin-left: 0.5rem;
+			}
+		}
+	}
+
+	.block {
+		display: block;
 	}
 }

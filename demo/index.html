@@ -22,25 +22,25 @@
 	<form id="form" novalidate>
 		<div class="wrapper">
 			<div class="input-wrapper">
-				<label for="name">Name</label>
-				<input id="name" type="text" data-loom-rules="required|minLength:6" />
+				<input id="name" class="input-floating" type="text" data-loom-rules="required|minLength:2" />
+				<label class="label-floating" for="name">Name</label>
 
 				<div class="rules">
 					<p class="rules__list-label m-t m-b--hf">Name must contain:</p>
 					<ul class="rules__list">
-						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="name" data-loom-bind-rules="minLength"></span>min. 6 characters</li>
+						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="name" data-loom-bind-rules="minLength"></span>min. 2 characters</li>
 					</ul>
 				</div>
 			</div>
 
 			<div class="input-wrapper">
-				<label for="name">Email</label>
-				<input id="email" type="email" data-loom-rules="required|email" />
+				<input id="email" class="input-floating" type="email" data-loom-rules="required|email" />
+				<label class="label-floating" for="name">Email</label>
 			</div>
 
 			<div class="input-wrapper">
-				<label for="name">Password</label>
-				<input id="password" type="password" name="password" data-loom-rules="required|minLength:8|hasLowerCase|hasUpperCase|hasNumbers" />
+				<input id="password" class="input-floating" type="password" name="password" data-loom-rules="required|minLength:8|hasLowerCase|hasUpperCase|hasNumbers" />
+				<label class="label-floating" for="name">Password</label>
 
 				<div class="rules">
 					<p class="rules__list-label m-t m-b--hf">Password must contain:</p>
@@ -50,6 +50,19 @@
 						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="password" data-loom-bind-rules="hasNumbers"></span>numbers</li>
 						<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="password" data-loom-bind-rules="minLength"></span>min. 8 characters</li>
 					</ul>
+				</div>
+			</div>
+
+			<div class="input-wrapper">
+				<p class="m-b--hf">Subscribe to newsletter:</p>
+				<div class="block m-b--hf">
+					<input id="radioYes" type="radio" name="newsletter" />
+					<label class="m-l--hf" for="radioYes">Yes please</label>
+				</div>
+
+				<div class="block">
+					<input id="radioNo" type="radio" name="newsletter" checked />
+					<label class="m-l--hf" for="radioNo">No, thanks</label>
 				</div>
 			</div>
 
