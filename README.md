@@ -99,11 +99,12 @@ loomInstance._eventsBus.on('eventName', (context) => {
 });
 ```  
 A list of available events, emitted and listened to:
-- `update` - Called after the update function has been called, modifying the settings
+- `update` - Called after the update function has been called, modifying the settings.
 - `destroy`
 - `destroy.after`
-- `root.submit` - Called when the form has been submitted. Context: `{ formElements: Array, allValid: Boolean }`;
-- `app.formElementValidated` -  Context: `formElement: Object`
+- `root.submit` - Called when the form has been submitted.
+- `validator.submit` - Called when the form has been submitted. Context: `{ formElements: Array, allValid: Boolean }`
+- `validator.formElementValidated` - Called when a form element has been validated. Context: `formElement: Object`
 
 # Compilation
 Bundles come in different formats, in their corresponding folders in the dist directory.

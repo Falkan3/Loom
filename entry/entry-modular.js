@@ -2,15 +2,16 @@ import Core from '../src/index';
 /* Components */
 import App from '../src/components/app';
 /* Modules */
-import PlaceholderModule from '../src/components/modules/placeholder-module';
+import Validator from '../src/components/modules/validator';
 
 const COMPONENTS = {
     App,
+    /* Modules */
+    Validator,
 };
 
 export {
-    /* Modules */
-    PlaceholderModule,
+    /* Optional modules */
 };
 
 export default class Loom extends Core {
