@@ -76,8 +76,6 @@ export default function (Loom, Components, Events) {
 
         setValueGetter(element) {
             switch (element.tagName) {
-            case 'SELECT':
-                return (el) => el.options[el.selectedIndex].value;
             case 'INPUT':
                 if (element.getAttribute('type') === 'checkbox') {
                     return (el) => el.checked;

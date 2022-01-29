@@ -106,6 +106,19 @@ p {
 		}
 	}
 
+	select {
+		border: solid 2px #f3f3f3;
+		transition: border-color cubic-bezier(.16, .87, .25, .91) 0.3s;
+
+		&.loom-error {
+			border-color: mixins.get-palette-hue('danger', 500);
+		}
+
+		&.loom-success {
+			border-color: mixins.get-palette-hue('success', 500);
+		}
+	}
+
 	button {
 		display: block;
 		width: 100%;
