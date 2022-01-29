@@ -79,6 +79,13 @@
 <script>
 	const loom = new Loom(document.querySelector('#form'), {});
 	loom.mount();
+	loom._eventsBus.on('validator.submit', (response) => {
+		if (response.allValid) {
+			console.log('%c Form validation: all valid', 'color: #139a43');
+		} else {
+			console.log('%c Form validation: errors encountered', 'color: #fb4245');
+		}
+	});
 	// loom._components.ComponentName.function();
 </script>
 </body>
