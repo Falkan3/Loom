@@ -23,8 +23,9 @@ export default function (Loom, Components, Events) {
         },
 
         getRelatedFormElement(el) {
-            return this.refs.formElements
-            .find((formElement) => formElement.el.isEqualNode(el));
+            return el.dataset[`${Loom.settings.data.prefix}Id`]
+                ? this.refs.formElements[el.dataset[`${Loom.settings.data.prefix}Id`]]
+                : this.refs.formElements.find((formElement) => formElement.el.isEqualNode(el));
         },
 
         setFormElements() {
@@ -69,8 +70,9 @@ export default function (Loom, Components, Events) {
                     }
                     formElement.boundElements.push(boundEl);
                 });
-                // Push form element instance
-                this.refs.formElements.push(formElement);
+
+                // Push form element instance and cache index in element's dataset
+                el.dataset[`${Loom.settings.data.prefix}Id`] = this.refs.formElements.push(formElement) - 1;
             });
         },
 
