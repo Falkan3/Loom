@@ -248,6 +248,30 @@ p {
 		}
 	}
 
+	.status {
+		&__msg-success {
+			display: none;
+			color: mixins.get-palette-hue('success', 500);
+
+			@at-root {
+				.status.status--success .status__msg-success {
+					display: block;
+				}
+			}
+		}
+
+		&__msg-error {
+			display: none;
+			color: mixins.get-palette-hue('danger', 500);
+
+			@at-root {
+				.status.status--error .status__msg-error {
+					display: block;
+				}
+			}
+		}
+	}
+
 	.m {
 		&-t {
 			margin-top: 1rem;
