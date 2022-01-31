@@ -31,12 +31,12 @@ export default function (Loom, Components, Events) {
         setFormElements() {
             // Convert from controls collections to an array
             Array.prototype.slice.call(Loom.rootElement.elements).forEach((el) => {
+                // Set the appropriate value getter according to the element's tag and input type
                 const valueGetter = Validator.setValueGetter(el);
 
                 const formElement = {
                     el,
                     rules: Object.prototype.hasOwnProperty.call(el.dataset, `${Loom.settings.data.prefix}Rules`) ? el.dataset[`${Loom.settings.data.prefix}Rules`].split('|') : [],
-                    validateOn: 'blur',
                     valid() {
                         return !this.failed.length;
                     },
@@ -48,6 +48,7 @@ export default function (Loom, Components, Events) {
                         '*': []
                     }
                 };
+
                 // Handle bound elements
                 Loom.rootElement.querySelectorAll(`[data-${Loom.settings.data.prefix}-bind-to="${el.id}"]`).forEach((boundEl) => {
                     if (boundEl.dataset[`${Loom.settings.data.prefix}BindRules`]) {
