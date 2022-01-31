@@ -53,12 +53,41 @@
 				</div>
 			</div>
 
+			<div class="input-wrapper">
+				<p class="m-b--hf">Subscribe to newsletter:</p>
+				<div class="block m-b--hf">
+					<label class="input-radio" data-loom-bind-to="newsletterYes">
+						<input id="newsletterYes" type="radio" name="newsletter" data-loom-rules="required" /> Yes please
+					</label>
+				</div>
+
+				<div class="block">
+					<label class="input-radio" data-loom-bind-to="newsletterNo">
+						<input id="newsletterNo" type="radio" name="newsletter" data-loom-rules="required" /> No, thanks
+					</label>
+				</div>
+			</div>
+
+			<div class="input-wrapper">
+				<div class="block m-b--hf">
+					<select id="select" name="select" data-loom-rules="required">
+						<option value="" selected>-</option>
+						<option value="option_1">Option 1</option>
+						<option value="option_2">Option 2</option>
+						<option value="option_3">Option 3</option>
+					</select>
+					<label class="m-l--hf" for="select">Select an option</label>
+				</div>
+			</div>
+
 			<!--<div class="input-wrapper">-->
 			<!--	<label for="name">Password confirmation</label>-->
 			<!--	<input id="passwordConfirmation" type="password" name="password_confirmation" data-loom-rules="required" />-->
 			<!--</div>-->
 
 			<button type="submit">Submit</button>
+
+			<p class="status m-t"><span class="status__msg-success">Form has been successfully validated.</span><span class="status__msg-error">Form validation encountered invalid fields.</span></p>
 		</div>
 	</form>
 </div>
@@ -66,10 +95,15 @@
 <script>
 	const loom = new Loom(document.querySelector('#form'), {});
 	loom.mount();
+	const status = document.querySelector('.status');
 	loom._eventsBus.on('validator.submit', (response) => {
 		if (response.allValid) {
+			status.classList.remove('status--error');
+			status.classList.add('status--success');
 			console.log('%c Form validation: all valid', 'color: #139a43');
 		} else {
+			status.classList.remove('status--success');
+			status.classList.add('status--error');
 			console.log('%c Form validation: errors encountered', 'color: #fb4245');
 		}
 	});
