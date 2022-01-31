@@ -127,6 +127,13 @@ export default function (Loom, Components, Events) {
                         failed.push(ruleName);
                     }
                     break;
+                case 'maxLength':
+                    if (formElement.getValue().length <= parseInt(ruleArg[0], 10)) {
+                        passed.push(ruleName);
+                    } else {
+                        failed.push(ruleName);
+                    }
+                    break;
                 case 'hasNumbers':
                     if (/\d/.test(formElement.getValue())) {
                         passed.push(ruleName);
