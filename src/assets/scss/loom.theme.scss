@@ -17,9 +17,11 @@
 
 $themeColor: #8760ff;
 
-* {
+*, *::after, *::before {
 	box-sizing: border-box;
 }
+
+@import 'libs/normalize';
 
 /* normalize focus outline effect */
 input,
@@ -61,8 +63,6 @@ p {
 }
 
 .demo {
-	@import 'libs/normalize';
-
 	.wrapper {
 		max-width: 26rem;
 		padding: 2rem;
