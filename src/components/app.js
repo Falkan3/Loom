@@ -85,7 +85,7 @@ export default function (Loom, Components, Events) {
          * @param  {Object} event
          */
         onChange(event) {
-            //
+            Events.emit('root.change', event.target);
         },
 
         /**
