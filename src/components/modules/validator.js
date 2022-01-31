@@ -168,7 +168,7 @@ export default function (Loom, Components, Events) {
             return { passed, failed };
         },
 
-        formElementApplyStyles(formElement, options) {
+        getElementsToUpdate(formElement, options = {}) {
             const settings = {
                 formElement: true,
                 success: true,
@@ -176,33 +176,42 @@ export default function (Loom, Components, Events) {
                 ...options
             };
 
-            const getElementsToUpdate = () => {
-                // Add all bound elements
-                const elementsToUpdate = [...formElement.boundElementRules['*']];
-                // Add input element, enabled by default
-                if (settings.formElement) elementsToUpdate.push(formElement.el);
-                // Passed
-                const success = [];
-                formElement.passed.forEach((rule) => {
-                    if (Object.prototype.hasOwnProperty.call(formElement.boundElementRules, rule)
-                        && formElement.boundElementRules[rule].length) {
-                        success.push(...formElement.boundElementRules[rule]);
-                    }
-                });
-                // Failed
-                const error = [];
-                formElement.failed.forEach((rule) => {
-                    if (Object.prototype.hasOwnProperty.call(formElement.boundElementRules, rule)
-                        && formElement.boundElementRules[rule].length) {
-                        error.push(...formElement.boundElementRules[rule]);
-                    }
-                });
-                return { all: elementsToUpdate, success, error };
+            // Add all bound elements
+            const elementsToUpdate = [...formElement.boundElementRules['*']];
+            // Add input element, enabled by default
+            if (settings.formElement) {
+                elementsToUpdate.push(formElement.el);
+            }
+            // Passed
+            const success = [];
+            formElement.passed.forEach((rule) => {
+                if (Object.prototype.hasOwnProperty.call(formElement.boundElementRules, rule)
+                    && formElement.boundElementRules[rule].length) {
+                    success.push(...formElement.boundElementRules[rule]);
+                }
+            });
+            // Failed
+            const error = [];
+            formElement.failed.forEach((rule) => {
+                if (Object.prototype.hasOwnProperty.call(formElement.boundElementRules, rule)
+                    && formElement.boundElementRules[rule].length) {
+                    error.push(...formElement.boundElementRules[rule]);
+                }
+            });
+            return { all: elementsToUpdate, success, error };
+        },
+
+        formElementApplyStyles(formElement, options = {}) {
+            const settings = {
+                formElement: true,
+                success: true,
+                error: true,
+                ...options
             };
 
             // Success
             if (settings.success && formElement.passed.length) {
-                const elementsToUpdate = getElementsToUpdate();
+                const elementsToUpdate = this.getElementsToUpdate(formElement, settings);
                 [...elementsToUpdate.all, ...elementsToUpdate.success].forEach((el) => {
                     el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
                     el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
@@ -210,13 +219,31 @@ export default function (Loom, Components, Events) {
             }
             // Error
             if (settings.error && formElement.failed.length) {
-                const elementsToUpdate = getElementsToUpdate();
+                const elementsToUpdate = this.getElementsToUpdate(formElement, settings);
                 [...elementsToUpdate.all, ...elementsToUpdate.error].forEach((el) => {
                     el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
                     el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
                 });
             }
         },
+
+        elementRemoveStyles(formElement, options = {}) {
+            const settings = {
+                success: true,
+                error: true,
+                ...options
+            };
+            const classesToRemove = [];
+            if (settings.success) {
+                classesToRemove.push(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
+            }
+            if (settings.error) {
+                classesToRemove.push(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
+            }
+            this.getElementsToUpdate(formElement).all.forEach((el) => {
+                el.classList.remove(...classesToRemove);
+            });
+        }
     };
 
     /**
@@ -225,9 +252,19 @@ export default function (Loom, Components, Events) {
      */
     Events.on('root.focus', (element) => {
         const currentFormElement = Validator.getRelatedFormElement(element);
+
+        if (element.getAttribute('type') === 'radio') {
+            element.form.querySelectorAll(`[name="${element.name}"]`).forEach((el) => {
+                const radioFormElement = Validator.getRelatedFormElement(el);
+                Validator.elementRemoveStyles(radioFormElement);
+            });
+        }
+
         if (!currentFormElement.valid()) {
-            element.classList
-            .remove(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
+            Validator.elementRemoveStyles(currentFormElement, {
+                success: false,
+                error: true
+            });
         }
     });
 
