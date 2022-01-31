@@ -106,16 +106,81 @@ p {
 		}
 	}
 
+	/* Custom radio styles */
+	input[type="radio"] {
+		appearance: none;
+		/* For iOS < 15 to remove gradient background */
+		background-color: transparent;
+		/* Not removed via appearance */
+		margin: 0;
+
+		/* Custom styles */
+		display: grid;
+		place-content: center;
+		font: inherit;
+		color: currentColor;
+		width: 1.15rem;
+		height: 1.15rem;
+		border: 0.15rem solid currentColor;
+		border-radius: 50%;
+		transform: translateY(-0.075rem);
+
+		&::before {
+			content: "";
+			width: 0.65rem;
+			height: 0.65rem;
+			border-radius: 50%;
+			/* Windows High Contrast Mode */
+			background-color: CanvasText;
+			transform: scale(0);
+			transition: transform cubic-bezier(.16, .87, .25, .91) 120ms;
+			box-shadow: inset 1rem 1rem $themeColor;
+		}
+
+		&:checked::before {
+			transform: scale(1);
+		}
+
+		&:focus {
+			outline: dashed max(2px, 0.15rem) $themeColor;
+			outline-offset: max(2px, 0.15rem);
+		}
+	}
+
+	/* Styles for custom radio wrapper - label or a div */
+	.input-radio {
+		display: grid;
+		grid-template-columns: 1rem auto;
+		align-items: center;
+		gap: 0.5rem;
+
+		&.loom-error {
+			color: mixins.get-palette-hue('danger', 500);
+		}
+
+		&.loom-success {
+			color: mixins.get-palette-hue('success', 500);
+		}
+	}
+
 	select {
 		border: solid 2px #f3f3f3;
 		transition: border-color cubic-bezier(.16, .87, .25, .91) 0.3s;
 
 		&.loom-error {
 			border-color: mixins.get-palette-hue('danger', 500);
+
+			& + label {
+				color: mixins.get-palette-hue('danger', 500);
+			}
 		}
 
 		&.loom-success {
 			border-color: mixins.get-palette-hue('success', 500);
+
+			& + label {
+				color: mixins.get-palette-hue('success', 500);
+			}
 		}
 	}
 
