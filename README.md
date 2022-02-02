@@ -1,9 +1,12 @@
 # Loom
+<p align="center"><img src="https://github.com/Falkan3/loom/blob/main/logo.svg?raw=true" alt="Loom logo" width="300" height="75" /></p>
+    
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://img.shields.io/github/package-json/v/Falkan3/Loom?style=for-the-badge&color=orange&label=VERSION" alt="GitHub package.json version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/github/license/Falkan3/Loom?style=for-the-badge" alt="License"></a>
+</p>
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/Falkan3/Loom?style=for-the-badge&color=orange&label=VERSION)
-![GitHub](https://img.shields.io/github/license/Falkan3/Loom?style=for-the-badge)
-
-***This plugin is still a work in progress***
+<p align="center"><em><strong>This plugin is still a work in progress</strong></em></p>
 
 # Description
 Loom is a form validation library.
