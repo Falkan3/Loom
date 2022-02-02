@@ -5,6 +5,7 @@ export default function (Loom, Components, Events) {
     const Validator = {
         refs: {
             formElements: [],
+            groups: {}
         },
 
         /**
@@ -43,15 +44,34 @@ export default function (Loom, Components, Events) {
                     getValue: () => valueGetter(el),
                     passed: [],
                     failed: [],
+                    related: [], // todo: add related form elements that are validated together
+                    group: el.dataset[`${Loom.settings.data.prefix}Group`] ?? null,
                     boundElements: [],
                     boundElementRules: {
                         '*': []
                     }
                 };
 
+                // Handle related form elements
+                if (formElement.el.tagName === 'INPUT' && formElement.el.getAttribute('type') === 'radio') {
+                    const relatedElements = this.refs.formElements.filter(
+                        (filteredFormElement) => filteredFormElement.el.name === formElement.el.name
+                    );
+                    // [...el.form.querySelectorAll(`[name="${el.name}"]`)];
+                    formElement.related.push(...relatedElements
+                    .filter((relatedElement) => relatedElement.el.id !== el.id));
+                }
+
+                // Handle groups
+                if (formElement.group
+                    && !Object.prototype.hasOwnProperty.call(this.refs.groups, formElement.group)) {
+                    this.refs.groups[el.dataset[`${Loom.settings.data.prefix}Group`]] = [];
+                }
+
                 // Handle bound elements
                 Loom.rootElement.querySelectorAll(`[data-${Loom.settings.data.prefix}-bind-to="${el.id}"]`).forEach((boundEl) => {
                     if (boundEl.dataset[`${Loom.settings.data.prefix}BindRules`]) {
+                        // Add rule specific binding
                         const bindRules = boundEl.dataset[`${Loom.settings.data.prefix}BindRules`].split('|');
                         bindRules.forEach((rule) => {
                             // Strip arguments from rule name
@@ -64,9 +84,11 @@ export default function (Loom, Components, Events) {
                                 formElement.boundElementRules[argumentStrippedRule] = [];
                             }
                             // Push the element to the rule bind array
-                            formElement.boundElementRules[argumentStrippedRule].push(boundEl);
+                            formElement.boundElementRules[argumentStrippedRule]
+                            .push(boundEl);
                         });
                     } else {
+                        // Add to full binding (all rules)
                         formElement.boundElementRules['*'].push(boundEl);
                     }
                     formElement.boundElements.push(boundEl);
@@ -74,6 +96,16 @@ export default function (Loom, Components, Events) {
 
                 // Push form element instance and cache index in element's dataset
                 el.dataset[`${Loom.settings.data.prefix}Id`] = this.refs.formElements.push(formElement) - 1;
+            });
+
+            // Handle group binding
+            Loom.rootElement.querySelectorAll(`[data-${Loom.settings.data.prefix}-bind-to]`).forEach((boundEl) => {
+                const binding = boundEl.dataset[`${Loom.settings.data.prefix}BindTo`];
+                const bindingArgArr = binding.split(':');
+                // Add to group binding
+                if (bindingArgArr.length === 2 && bindingArgArr[0] === 'group' && Object.prototype.hasOwnProperty.call(this.refs.groups, bindingArgArr[1])) {
+                    this.refs.groups[bindingArgArr[1]].push(boundEl);
+                }
             });
         },
 
@@ -85,12 +117,8 @@ export default function (Loom, Components, Events) {
                 }
                 if (element.getAttribute('type') === 'radio') {
                     return (el) => {
-                        let value = null;
                         const selectedOptions = el.form.querySelectorAll(`[name="${el.name}"]:checked`);
-                        if (selectedOptions.length) {
-                            value = selectedOptions[0].value;
-                        }
-                        return value;
+                        return selectedOptions.length ? selectedOptions[0].value : null;
                     };
                 }
                 return (el) => el.value;
@@ -243,6 +271,25 @@ export default function (Loom, Components, Events) {
             this.getElementsToUpdate(formElement).all.forEach((el) => {
                 el.classList.remove(...classesToRemove);
             });
+        },
+
+        groupApplyStyles(group) {
+            if (Object.prototype.hasOwnProperty.call(this.refs.groups, group)) {
+                const formElements = this.refs.formElements
+                .filter((formElement) => formElement.group === group);
+                const allValid = formElements.every((formElement) => !formElement.failed.length);
+                if (allValid) {
+                    this.refs.groups[group].forEach((el) => {
+                        el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
+                        el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
+                    });
+                } else {
+                    this.refs.groups[group].forEach((el) => {
+                        el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
+                        el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
+                    });
+                }
+            }
         }
     };
 
@@ -253,12 +300,12 @@ export default function (Loom, Components, Events) {
     Events.on('root.focus', (element) => {
         const currentFormElement = Validator.getRelatedFormElement(element);
 
-        if (element.getAttribute('type') === 'radio') {
-            element.form.querySelectorAll(`[name="${element.name}"]`).forEach((el) => {
-                const radioFormElement = Validator.getRelatedFormElement(el);
-                Validator.elementRemoveStyles(radioFormElement);
-            });
-        }
+        // if (element.getAttribute('type') === 'radio') {
+        //     element.form.querySelectorAll(`[name="${element.name}"]`).forEach((el) => {
+        //         const radioFormElement = Validator.getRelatedFormElement(el);
+        //         Validator.elementRemoveStyles(radioFormElement);
+        //     });
+        // }
 
         if (!currentFormElement.valid()) {
             Validator.elementRemoveStyles(currentFormElement, {
@@ -277,6 +324,9 @@ export default function (Loom, Components, Events) {
         if (currentFormElement) {
             Validator.formElementValidate(currentFormElement);
             Validator.formElementApplyStyles(currentFormElement, { formElement: false });
+            if (currentFormElement.group) {
+                Validator.groupApplyStyles(currentFormElement.group);
+            }
         }
     });
 
@@ -289,6 +339,9 @@ export default function (Loom, Components, Events) {
         if (currentFormElement) {
             Validator.formElementValidate(currentFormElement);
             Validator.formElementApplyStyles(currentFormElement);
+            if (currentFormElement.group) {
+                Validator.groupApplyStyles(currentFormElement.group);
+            }
         }
     });
 
@@ -300,11 +353,23 @@ export default function (Loom, Components, Events) {
         Validator.refs.formElements.forEach((formElement) => {
             Validator.formElementValidate(formElement);
             Validator.formElementApplyStyles(formElement);
+            if (formElement.group) {
+                Validator.groupApplyStyles(formElement.group);
+            }
         });
         Events.emit('validator.submit', {
             formElements: Validator.refs.formElements,
             allValid: Validator.refs.formElements.every((el) => el.valid())
         });
+    });
+
+    Events.on('validator.formElementValidated', (formElement) => {
+        if (formElement.related.length) {
+            formElement.related.forEach((relatedFormElement) => {
+                Validator.formElementValidate(relatedFormElement);
+                Validator.formElementApplyStyles(relatedFormElement);
+            });
+        }
     });
 
     return Validator;
