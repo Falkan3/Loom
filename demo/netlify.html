@@ -10,8 +10,7 @@
 <title>Test</title>
 
 <!-- Assets -->
-<link rel="stylesheet" href="/css/loom.core.css">
-<link rel="stylesheet" href="/css/loom.theme.css">
+<link rel="stylesheet" href="/css/demo.css">
 <script src="/js/loom.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +22,7 @@
 	<form id="form" novalidate>
 		<div class="wrapper">
 			<div class="input-wrapper">
-				<input id="name" class="input-floating" type="text" data-loom-rules="required|minLength:2" />
+				<input id="name" class="input-floating" type="text" data-loom-rules="required|minLength:2" data-loom-group="nameAndEmail" />
 				<label class="label-floating" for="name">Name</label>
 
 				<div class="rules">
@@ -35,8 +34,8 @@
 			</div>
 
 			<div class="input-wrapper">
-				<input id="email" class="input-floating" type="email" data-loom-rules="required|email" />
-				<label class="label-floating" for="name">Email</label>
+				<input id="email" class="input-floating" type="email" data-loom-rules="required|email" data-loom-group="nameAndEmail" />
+				<label class="label-floating" for="email">Email</label>
 			</div>
 
 			<div class="input-wrapper">
@@ -58,37 +57,43 @@
 				<p class="m-b--hf">Subscribe to newsletter:</p>
 				<div class="block m-b--hf">
 					<label class="input-radio" data-loom-bind-to="newsletterYes">
-						<input id="newsletterYes" type="radio" name="newsletter" data-loom-rules="required" /> Yes please
+						<input id="newsletterYes" type="radio" name="newsletter" data-loom-rules="required" data-loom-group="newsletter" /> Yes please
 					</label>
 				</div>
 
 				<div class="block">
 					<label class="input-radio" data-loom-bind-to="newsletterNo">
-						<input id="newsletterNo" type="radio" name="newsletter" data-loom-rules="required" /> No, thanks
+						<input id="newsletterNo" type="radio" name="newsletter" data-loom-rules="required" data-loom-group="newsletter" /> No, thanks
 					</label>
 				</div>
 			</div>
 
 			<div class="input-wrapper">
 				<div class="block m-b--hf">
+					<label class="block m-b--hf" for="select">Select an option</label>
 					<select id="select" name="select" data-loom-rules="required">
 						<option value="" selected>-</option>
 						<option value="option_1">Option 1</option>
 						<option value="option_2">Option 2</option>
 						<option value="option_3">Option 3</option>
 					</select>
-					<label class="m-l--hf" for="select">Select an option</label>
 				</div>
 			</div>
 
-			<!--<div class="input-wrapper">-->
-			<!--	<label for="name">Password confirmation</label>-->
-			<!--	<input id="passwordConfirmation" type="password" name="password_confirmation" data-loom-rules="required" />-->
-			<!--</div>-->
+			<div class="rules m-b--2">
+				<p class="rules__list-label m-t m-b--hf">Group binding:</p>
+				<ul class="rules__list">
+					<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="group:nameAndEmail"></span>Name and email are valid</li>
+					<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="password"></span>Password is valid</li>
+					<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="group:newsletter"></span>Newsletter option is checked</li>
+					<li class="rules__list-item"><span class="rules__list-icon" data-loom-bind-to="select"></span>Select option is checked</li>
+				</ul>
+			</div>
 
 			<button type="submit">Submit</button>
 
-			<p class="status m-t"><span class="status__msg-success">Form has been successfully validated.</span><span class="status__msg-error">Form validation encountered invalid fields.</span></p>
+			<p class="status m-t" data-loom-bind-to="group:newsletter"><span class="status__msg-success">Newsletter group is valid.</span><span class="status__msg-error">Newsletter group is invalid.</span></p>
+			<p class="status status--form m-t"><span class="status__msg-success">Form has been successfully validated.</span><span class="status__msg-error">Form validation encountered invalid fields.</span></p>
 		</div>
 	</form>
 </div>
@@ -96,15 +101,15 @@
 <script>
 	const loom = new Loom(document.querySelector('#form'), {});
 	loom.mount();
-	const status = document.querySelector('.status');
+	const status = document.querySelector('.status--form');
 	loom._eventsBus.on('validator.submit', (response) => {
 		if (response.allValid) {
-			status.classList.remove('status--error');
-			status.classList.add('status--success');
+			status.classList.remove('loom-error');
+			status.classList.add('loom-success');
 			console.log('%c Form validation: all valid', 'color: #139a43');
 		} else {
-			status.classList.remove('status--success');
-			status.classList.add('status--error');
+			status.classList.remove('loom-success');
+			status.classList.add('loom-error');
 			console.log('%c Form validation: errors encountered', 'color: #fb4245');
 		}
 	});

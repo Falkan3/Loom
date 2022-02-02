@@ -220,16 +220,16 @@ p {
 
 			&-item {
 				display: flex;
-				flex: 1 0 50%;
+				flex: 0 0 50%;
 				width: 50%;
 				padding: 0.5rem;
 			}
 
 			&-icon {
 				display: block;
-				align-self: center;
-				width: 12px;
-				height: 12px;
+				width: 0.7rem;
+				height: 0.7rem;
+				margin-top: 0.21rem; // 60% line-height, 0.7 * 0.6 = 0.42 / 2 = 0.21
 				margin-right: 0.5rem;
 				border-radius: 50%;
 				background-color: #ddd;
@@ -254,7 +254,7 @@ p {
 			color: mixins.get-palette-hue('success', 500);
 
 			@at-root {
-				.status.status--success .status__msg-success {
+				.status.loom-success .status__msg-success {
 					display: block;
 				}
 			}
@@ -265,7 +265,7 @@ p {
 			color: mixins.get-palette-hue('danger', 500);
 
 			@at-root {
-				.status.status--error .status__msg-error {
+				.status.loom-error .status__msg-error {
 					display: block;
 				}
 			}
@@ -282,6 +282,10 @@ p {
 
 			&--hf {
 				margin-bottom: 0.5rem;
+			}
+
+			&--2 {
+				margin-bottom: 2rem;
 			}
 		}
 
