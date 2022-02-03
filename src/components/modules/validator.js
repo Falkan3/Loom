@@ -52,16 +52,6 @@ export default function (Loom, Components, Events) {
                     }
                 };
 
-                // Handle related form elements
-                if (formElement.el.tagName === 'INPUT' && formElement.el.getAttribute('type') === 'radio') {
-                    const relatedElements = this.refs.formElements.filter(
-                        (filteredFormElement) => filteredFormElement.el.name === formElement.el.name
-                    );
-                    // [...el.form.querySelectorAll(`[name="${el.name}"]`)];
-                    formElement.related.push(...relatedElements
-                    .filter((relatedElement) => relatedElement.el.id !== el.id));
-                }
-
                 // Handle groups
                 if (formElement.group
                     && !Object.prototype.hasOwnProperty.call(this.refs.groups, formElement.group)) {
@@ -98,6 +88,18 @@ export default function (Loom, Components, Events) {
                 el.dataset[`${Loom.settings.data.prefix}Id`] = this.refs.formElements.push(formElement) - 1;
             });
 
+            // Handle related form elements
+            this.refs.formElements.forEach((formElement) => {
+                if (formElement.el.tagName === 'INPUT' && formElement.el.getAttribute('type') === 'radio') {
+                    const relatedElements = this.refs.formElements.filter(
+                        (filteredFormElement) => filteredFormElement.el.name === formElement.el.name
+                    );
+                    // [...el.form.querySelectorAll(`[name="${el.name}"]`)];
+                    formElement.related.push(...relatedElements
+                    .filter((relatedElement) => relatedElement.el.id !== formElement.el.id));
+                }
+            });
+
             // Handle group binding
             Loom.rootElement.querySelectorAll(`[data-${Loom.settings.data.prefix}-bind-to]`).forEach((boundEl) => {
                 const binding = boundEl.dataset[`${Loom.settings.data.prefix}BindTo`];
@@ -127,7 +129,7 @@ export default function (Loom, Components, Events) {
             }
         },
 
-        formElementValidate(formElement) {
+        formElementValidate(formElement, callback = true) {
             const passed = [];
             const failed = [];
             formElement.rules.forEach((rule) => {
@@ -192,7 +194,7 @@ export default function (Loom, Components, Events) {
             });
             formElement.passed = passed;
             formElement.failed = failed;
-            Events.emit('validator.formElementValidated', formElement);
+            Events.emit('validator.formElementValidated', { formElement, callback });
             return { passed, failed };
         },
 
@@ -363,10 +365,10 @@ export default function (Loom, Components, Events) {
         });
     });
 
-    Events.on('validator.formElementValidated', (formElement) => {
-        if (formElement.related.length) {
-            formElement.related.forEach((relatedFormElement) => {
-                Validator.formElementValidate(relatedFormElement);
+    Events.on('validator.formElementValidated', (response) => {
+        if (response.callback && response.formElement.related.length) {
+            response.formElement.related.forEach((relatedFormElement) => {
+                Validator.formElementValidate(relatedFormElement, false);
                 Validator.formElementApplyStyles(relatedFormElement);
             });
         }
