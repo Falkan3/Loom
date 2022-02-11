@@ -5,6 +5,9 @@
 <a href="https://github.com/Falkan3/Loom"><img src="https://img.shields.io/github/package-json/v/Falkan3/Loom?style=for-the-badge&color=orange&label=VERSION" alt="GitHub package.json version"></a>
 <a href="https://github.com/Falkan3/Loom/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Falkan3/Loom?style=for-the-badge" alt="License"></a>
 </p>
+<p align="center">
+<a href="https://loom-form-validation.netlify.com"><img src="https://api.netlify.com/api/v1/badges/652c277d-f0a4-491d-a2c8-620e76d386cb/deploy-status" alt="Netlify Status"></a>
+</p>
 
 <p align="center"><em><strong>This plugin is still a work in progress</strong></em></p>
 
