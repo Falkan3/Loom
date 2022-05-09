@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { isEmpty } from '@utils/string';
+import formatClass from '@utils/formatter';
 
 export default function (Loom, Components, Events) {
     const Validator = {
@@ -243,16 +244,16 @@ export default function (Loom, Components, Events) {
             if (settings.success && formElement.passed.length) {
                 const elementsToUpdate = this.getElementsToUpdate(formElement, settings);
                 [...elementsToUpdate.all, ...elementsToUpdate.success].forEach((el) => {
-                    el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
-                    el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
+                    el.classList.remove(formatClass('error', settings));
+                    el.classList.add(formatClass('success', settings));
                 });
             }
             // Error
             if (settings.error && formElement.failed.length) {
                 const elementsToUpdate = this.getElementsToUpdate(formElement, settings);
                 [...elementsToUpdate.all, ...elementsToUpdate.error].forEach((el) => {
-                    el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
-                    el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
+                    el.classList.remove(formatClass('success', settings));
+                    el.classList.add(formatClass('error', settings));
                 });
             }
         },
@@ -265,10 +266,10 @@ export default function (Loom, Components, Events) {
             };
             const classesToRemove = [];
             if (settings.success) {
-                classesToRemove.push(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
+                classesToRemove.push(formatClass('success', settings));
             }
             if (settings.error) {
-                classesToRemove.push(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
+                classesToRemove.push(formatClass('error', settings));
             }
             this.getElementsToUpdate(formElement).all.forEach((el) => {
                 el.classList.remove(...classesToRemove);
@@ -282,13 +283,13 @@ export default function (Loom, Components, Events) {
                 const allValid = formElements.every((formElement) => !formElement.failed.length);
                 if (allValid) {
                     this.refs.groups[group].forEach((el) => {
-                        el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
-                        el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
+                        el.classList.remove(formatClass('error', Loom.settings));
+                        el.classList.add(formatClass('success', Loom.settings));
                     });
                 } else {
                     this.refs.groups[group].forEach((el) => {
-                        el.classList.remove(`${Loom.settings.classes.root}-${Loom.settings.classes.success}`);
-                        el.classList.add(`${Loom.settings.classes.root}-${Loom.settings.classes.error}`);
+                        el.classList.remove(formatClass('success', Loom.settings));
+                        el.classList.add(formatClass('error', Loom.settings));
                     });
                 }
             }
