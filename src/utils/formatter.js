@@ -5,7 +5,7 @@
  * @param name
  * @returns {string|number}
  */
-export default function formatClass(settings, name) {
+export default function formatClass(name, settings) {
     const classArr = [settings.classes.root];
     switch (name) {
     case 'success':
