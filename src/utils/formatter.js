@@ -1,8 +1,8 @@
 /**
  * Format class using the root prefix.
  *
- * @param settings
  * @param name
+ * @param settings
  * @returns {string|number}
  */
 export default function formatClass(name, settings) {

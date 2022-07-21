@@ -244,16 +244,16 @@ export default function (Loom, Components, Events) {
             if (settings.success && formElement.passed.length) {
                 const elementsToUpdate = this.getElementsToUpdate(formElement, settings);
                 [...elementsToUpdate.all, ...elementsToUpdate.success].forEach((el) => {
-                    el.classList.remove(formatClass('error', settings));
-                    el.classList.add(formatClass('success', settings));
+                    el.classList.remove(formatClass('error', Loom.settings));
+                    el.classList.add(formatClass('success', Loom.settings));
                 });
             }
             // Error
             if (settings.error && formElement.failed.length) {
                 const elementsToUpdate = this.getElementsToUpdate(formElement, settings);
                 [...elementsToUpdate.all, ...elementsToUpdate.error].forEach((el) => {
-                    el.classList.remove(formatClass('success', settings));
-                    el.classList.add(formatClass('error', settings));
+                    el.classList.remove(formatClass('success', Loom.settings));
+                    el.classList.add(formatClass('error', Loom.settings));
                 });
             }
         },
@@ -266,10 +266,10 @@ export default function (Loom, Components, Events) {
             };
             const classesToRemove = [];
             if (settings.success) {
-                classesToRemove.push(formatClass('success', settings));
+                classesToRemove.push(formatClass('success', Loom.settings));
             }
             if (settings.error) {
-                classesToRemove.push(formatClass('error', settings));
+                classesToRemove.push(formatClass('error', Loom.settings));
             }
             this.getElementsToUpdate(formElement).all.forEach((el) => {
                 el.classList.remove(...classesToRemove);
