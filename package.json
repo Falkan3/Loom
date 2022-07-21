@@ -104,5 +104,6 @@
     },
     "directories": {
         "test": "tests"
-    }
+    },
+    "dependencies": {}
 }
