@@ -130,7 +130,7 @@ ESM version:
 import App from '../src/components/app';
 import XXX from '../src/components/XXX';
 /* Optional components */
-import YYY from '../src/components/XXX';
+import YYY from '../src/components/YYY';
 
 const COMPONENTS = {
   /* Required */
