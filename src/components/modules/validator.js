@@ -38,7 +38,7 @@ export default function (Loom, Components, Events) {
 
                 const formElement = {
                     el,
-                    rules: Object.prototype.hasOwnProperty.call(el.dataset, `${Loom.settings.data.prefix}Rules`) ? el.dataset[`${Loom.settings.data.prefix}Rules`].split('|') : [],
+                    rules: Object.prototype.hasOwnProperty.call(el.dataset, `${Loom.settings.data.prefix}Rules`) ? this.parseRules(el.dataset[`${Loom.settings.data.prefix}Rules`].split('|')) : [],
                     valid() {
                         return !this.failed.length;
                     },
@@ -112,6 +112,23 @@ export default function (Loom, Components, Events) {
             });
         },
 
+        parseRules(rules) {
+            const parsed = [];
+            rules.forEach((rule) => {
+                const ruleArr = rule.split(':');
+                const ruleName = ruleArr[0];
+                const ruleArg = ruleArr.slice(1);
+                const obj = {
+                    name: ruleName,
+                };
+                if (ruleArg) {
+                    obj.arg = ruleArg;
+                }
+                parsed.push(obj);
+            });
+            return parsed;
+        },
+
         setValueGetter(element) {
             switch (element.tagName) {
             case 'INPUT':
@@ -134,59 +151,55 @@ export default function (Loom, Components, Events) {
             const passed = [];
             const failed = [];
             formElement.rules.forEach((rule) => {
-                const ruleArr = rule.split(':');
-                const ruleName = ruleArr[0];
-                const ruleArg = ruleArr.slice(1);
-
-                switch (ruleName) {
+                switch (rule.name) {
                 case 'email':
                     // eslint-disable-next-line max-len
                     if (Loom.settings.variables.emailValidationRegex.test(formElement.getValue().toLowerCase())) {
-                        passed.push(ruleName);
+                        passed.push(rule.name);
                     } else {
-                        failed.push(ruleName);
+                        failed.push(rule.name);
                     }
                     break;
                 case 'required':
                     if (!isEmpty(formElement.getValue())) {
-                        passed.push(ruleName);
+                        passed.push(rule.name);
                     } else {
-                        failed.push(ruleName);
+                        failed.push(rule.name);
                     }
                     break;
                 case 'minLength':
-                    if (formElement.getValue().length >= parseInt(ruleArg[0], 10)) {
-                        passed.push(ruleName);
+                    if (formElement.getValue().length >= parseInt(rule.arg[0], 10)) {
+                        passed.push(rule.name);
                     } else {
-                        failed.push(ruleName);
+                        failed.push(rule.name);
                     }
                     break;
                 case 'maxLength':
-                    if (formElement.getValue().length <= parseInt(ruleArg[0], 10)) {
-                        passed.push(ruleName);
+                    if (formElement.getValue().length <= parseInt(rule.arg[0], 10)) {
+                        passed.push(rule.name);
                     } else {
-                        failed.push(ruleName);
+                        failed.push(rule.name);
                     }
                     break;
                 case 'hasNumbers':
                     if (/\d/.test(formElement.getValue())) {
-                        passed.push(ruleName);
+                        passed.push(rule.name);
                     } else {
-                        failed.push(ruleName);
+                        failed.push(rule.name);
                     }
                     break;
                 case 'hasLowerCase':
                     if (formElement.getValue().toUpperCase() !== formElement.getValue()) {
-                        passed.push(ruleName);
+                        passed.push(rule.name);
                     } else {
-                        failed.push(ruleName);
+                        failed.push(rule.name);
                     }
                     break;
                 case 'hasUpperCase':
                     if (formElement.getValue().toLowerCase() !== formElement.getValue()) {
-                        passed.push(ruleName);
+                        passed.push(rule.name);
                     } else {
-                        failed.push(ruleName);
+                        failed.push(rule.name);
                     }
                     break;
                 default:
@@ -362,7 +375,8 @@ export default function (Loom, Components, Events) {
         });
         Events.emit('validator.submit', {
             formElements: Validator.refs.formElements,
-            allValid: Validator.refs.formElements.every((el) => el.valid())
+            allValid: Validator.refs.formElements.every((el) => el.valid()),
+            // errors: Validator.refs.formElements.filter((el) => !el.valid())
         });
     });
 
