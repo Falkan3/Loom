@@ -1,4 +1,4 @@
-import build from './build';
+import build from './build.js';
 
 export default Object.assign(build, {
     input: 'entry/entry-modular.js',

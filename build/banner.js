@@ -1,4 +1,4 @@
-const data = require('../package.json');
+import data from '../package.json' assert { type: 'json' };
 
 export default `/*!
  * Loom.js v${data.version}

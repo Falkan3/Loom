@@ -3,7 +3,12 @@
     "parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaVersion": 6,
-        "sourceType": "module"
+        "sourceType": "module",
+        "babelOptions": {
+            "plugins": [
+                "@babel/plugin-syntax-import-assertions"
+            ]
+        }
     },
     "env": {
         "mocha": true,
@@ -40,6 +45,9 @@
         ],
         "no-unused-vars": "warn",
         "prefer-object-spread": "warn",
-        "max-len": ["error", {"code": 100, "ignoreTemplateLiterals": true, "ignoreStrings": true}]
+        "max-len": ["error", {"code": 100, "ignoreTemplateLiterals": true, "ignoreStrings": true}],
+        "import/prefer-default-export": "off",
+        "import/no-named-as-default": "off",
+        "import/extensions": "off"
     }
 }
