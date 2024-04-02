@@ -316,6 +316,8 @@ export default function (Loom, Components, Events) {
     Events.on('root.focus', (element) => {
         const currentFormElement = Validator.getRelatedFormElement(element);
 
+        if (!currentFormElement) return;
+
         // if (element.getAttribute('type') === 'radio') {
         //     element.form.querySelectorAll(`[name="${element.name}"]`).forEach((el) => {
         //         const radioFormElement = Validator.getRelatedFormElement(el);
@@ -337,12 +339,13 @@ export default function (Loom, Components, Events) {
      */
     Events.on('root.input', (element) => {
         const currentFormElement = Validator.getRelatedFormElement(element);
-        if (currentFormElement) {
-            Validator.formElementValidate(currentFormElement);
-            Validator.formElementApplyStyles(currentFormElement, { formElement: false });
-            if (currentFormElement.group) {
-                Validator.groupApplyStyles(currentFormElement.group);
-            }
+
+        if (!currentFormElement) return;
+
+        Validator.formElementValidate(currentFormElement);
+        Validator.formElementApplyStyles(currentFormElement, { formElement: false });
+        if (currentFormElement.group) {
+            Validator.groupApplyStyles(currentFormElement.group);
         }
     });
 
@@ -352,12 +355,13 @@ export default function (Loom, Components, Events) {
      */
     Events.on('root.blur', (element) => {
         const currentFormElement = Validator.getRelatedFormElement(element);
-        if (currentFormElement) {
-            Validator.formElementValidate(currentFormElement);
-            Validator.formElementApplyStyles(currentFormElement);
-            if (currentFormElement.group) {
-                Validator.groupApplyStyles(currentFormElement.group);
-            }
+
+        if (!currentFormElement) return;
+
+        Validator.formElementValidate(currentFormElement);
+        Validator.formElementApplyStyles(currentFormElement);
+        if (currentFormElement.group) {
+            Validator.groupApplyStyles(currentFormElement.group);
         }
     });
 
