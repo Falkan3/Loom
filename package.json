@@ -65,7 +65,6 @@
         "@babel/preset-env": "^7.24.3",
         "@babel/register": "^7.23.7",
         "@babel/runtime-corejs3": "^7.24.1",
-        "@glidejs/glide": "^3.6.0",
         "@rollup/plugin-babel": "^6.0.4",
         "@rollup/plugin-terser": "^0.4.4",
         "babel-jest": "^29.7.0",
