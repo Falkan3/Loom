@@ -96,8 +96,7 @@ export default function (Loom, Components, Events) {
                         (filteredFormElement) => filteredFormElement.el.name === formElement.el.name
                     );
                     // [...el.form.querySelectorAll(`[name="${el.name}"]`)];
-                    formElement.related.push(...relatedElements
-                    .filter((relatedElement) => relatedElement.el.id !== formElement.el.id));
+                    formElement.related.push(...relatedElements.filter((relatedElement) => relatedElement.el.value !== formElement.el.value));
                 }
             });
 
@@ -136,7 +135,7 @@ export default function (Loom, Components, Events) {
                     return (el) => {
                         const selectedOptions = el.form.querySelectorAll(`[name="${el.name}"]:checked`);
                         return selectedOptions.length ? Array.from(selectedOptions).map((el) => el.value) : null;
-                    }
+                    };
                 }
                 if (element.getAttribute('type') === 'radio') {
                     return (el) => {
