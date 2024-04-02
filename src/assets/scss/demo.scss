@@ -107,7 +107,7 @@ p {
 	}
 
 	/* Custom radio styles */
-	input[type="radio"] {
+	input[type="checkbox"], input[type="radio"] {
 		appearance: none;
 		/* For iOS < 15 to remove gradient background */
 		background-color: transparent;
@@ -122,14 +122,12 @@ p {
 		width: 1.15rem;
 		height: 1.15rem;
 		border: 0.15rem solid currentColor;
-		border-radius: 50%;
 		transform: translateY(-0.075rem);
 
 		&::before {
 			content: "";
 			width: 0.65rem;
 			height: 0.65rem;
-			border-radius: 50%;
 			/* Windows High Contrast Mode */
 			background-color: CanvasText;
 			transform: scale(0);
@@ -144,6 +142,22 @@ p {
 		&:focus {
 			outline: dashed max(2px, 0.15rem) $themeColor;
 			outline-offset: max(2px, 0.15rem);
+		}
+	}
+
+	input[type="checkbox"] {
+		border-radius: 2px;
+
+		&::before {
+			border-radius: 1px;
+		}
+	}
+
+	input[type="radio"] {
+		border-radius: 50%;
+
+		&::before {
+			border-radius: 50%;
 		}
 	}
 

@@ -91,7 +91,7 @@ export default function (Loom, Components, Events) {
 
             // Handle related form elements
             this.refs.formElements.forEach((formElement) => {
-                if (formElement.el.tagName === 'INPUT' && formElement.el.getAttribute('type') === 'radio') {
+                if (formElement.el.tagName === 'INPUT' && (formElement.el.getAttribute('type') === 'checkbox' || formElement.el.getAttribute('type') === 'radio')) {
                     const relatedElements = this.refs.formElements.filter(
                         (filteredFormElement) => filteredFormElement.el.name === formElement.el.name
                     );
@@ -133,7 +133,10 @@ export default function (Loom, Components, Events) {
             switch (element.tagName) {
             case 'INPUT':
                 if (element.getAttribute('type') === 'checkbox') {
-                    return (el) => el.checked;
+                    return (el) => {
+                        const selectedOptions = el.form.querySelectorAll(`[name="${el.name}"]:checked`);
+                        return selectedOptions.length ? Array.from(selectedOptions).map((el) => el.value) : null;
+                    }
                 }
                 if (element.getAttribute('type') === 'radio') {
                     return (el) => {
@@ -306,6 +309,21 @@ export default function (Loom, Components, Events) {
                     });
                 }
             }
+        },
+
+        validateForm() {
+            Validator.refs.formElements.forEach((formElement) => {
+                Validator.formElementValidate(formElement);
+                Validator.formElementApplyStyles(formElement);
+                if (formElement.group) {
+                    Validator.groupApplyStyles(formElement.group);
+                }
+            });
+            return {
+                formElements: Validator.refs.formElements,
+                allValid: Validator.refs.formElements.every((el) => el.valid()),
+                // errors: Validator.refs.formElements.filter((el) => !el.valid())
+            };
         }
     };
 
@@ -370,18 +388,8 @@ export default function (Loom, Components, Events) {
      * - on root element form submit
      */
     Events.on('root.submit', () => {
-        Validator.refs.formElements.forEach((formElement) => {
-            Validator.formElementValidate(formElement);
-            Validator.formElementApplyStyles(formElement);
-            if (formElement.group) {
-                Validator.groupApplyStyles(formElement.group);
-            }
-        });
-        Events.emit('validator.submit', {
-            formElements: Validator.refs.formElements,
-            allValid: Validator.refs.formElements.every((el) => el.valid()),
-            // errors: Validator.refs.formElements.filter((el) => !el.valid())
-        });
+        const formValidResp = Validator.validateForm();
+        Events.emit('validator.submit', formValidResp);
     });
 
     Events.on('validator.formElementValidated', (response) => {

@@ -54,16 +54,43 @@
 			</div>
 
 			<div class="input-wrapper">
+				<p class="m-b--hf">Select your interests:</p>
+				<div class="block m-b--hf">
+					<label class="input-radio" data-loom-bind-to="interestsWebDesign">
+						<input id="interestsWebDesign" type="checkbox" name="interests" value="web_design" data-loom-rules="required" data-loom-group="interests" /> Web design
+					</label>
+				</div>
+
+				<div class="block m-b--hf">
+					<label class="input-radio" data-loom-bind-to="interestsWebDevelopment">
+						<input id="interestsWebDevelopment" type="checkbox" name="interests" value="web_development" data-loom-rules="required" data-loom-group="interests" /> Web development
+					</label>
+				</div>
+
+				<div class="block m-b--hf">
+					<label class="input-radio" data-loom-bind-to="interestsDevOps">
+						<input id="interestsDevOps" type="checkbox" name="interests" value="dev_ops" data-loom-rules="required" data-loom-group="interests" /> Dev ops
+					</label>
+				</div>
+
+				<div class="block">
+					<label class="input-radio" data-loom-bind-to="interestsGraphicDesign">
+						<input id="interestsGraphicDesign" type="checkbox" name="interests" value="graphic_design" data-loom-rules="required" data-loom-group="interests" /> Graphic design
+					</label>
+				</div>
+			</div>
+
+			<div class="input-wrapper">
 				<p class="m-b--hf">Subscribe to newsletter:</p>
 				<div class="block m-b--hf">
 					<label class="input-radio" data-loom-bind-to="newsletterYes">
-						<input id="newsletterYes" type="radio" name="newsletter" data-loom-rules="required" data-loom-group="newsletter" /> Yes please
+						<input id="newsletterYes" type="radio" name="newsletter" value="yes" data-loom-rules="required" data-loom-group="newsletter" /> Yes please
 					</label>
 				</div>
 
 				<div class="block">
 					<label class="input-radio" data-loom-bind-to="newsletterNo">
-						<input id="newsletterNo" type="radio" name="newsletter" data-loom-rules="required" data-loom-group="newsletter" /> No, thanks
+						<input id="newsletterNo" type="radio" name="newsletter" value="no" data-loom-rules="required" data-loom-group="newsletter" /> No, thanks
 					</label>
 				</div>
 			</div>
