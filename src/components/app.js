@@ -49,6 +49,10 @@ export default function (Loom, Components, Events) {
          * Removes events.
          */
         unbind() {
+            Binder.off('focus', Loom.rootElement, true);
+            Binder.off('input', Loom.rootElement, true);
+            Binder.off('blur', Loom.rootElement, true);
+            Binder.off('change', Loom.rootElement);
             Binder.off('submit', Loom.rootElement);
         },
 
