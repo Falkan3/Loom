@@ -1,8 +1,8 @@
-import Core from '../src/index';
+import Core from '../src/index.js';
 /* Components */
-import App from '../src/components/app';
+import App from '../src/components/app.js';
 /* Modules */
-import Validator from '../src/components/modules/validator';
+import Validator from '../src/components/modules/validator.js';
 
 const COMPONENTS = {
     App,

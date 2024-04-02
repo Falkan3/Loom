@@ -18,6 +18,7 @@ export default {
                 '@babel/plugin-syntax-dynamic-import'
             ],
             // runtimeHelpers: true,
+            babelHelpers: 'bundled'
         }),
     ],
 };
