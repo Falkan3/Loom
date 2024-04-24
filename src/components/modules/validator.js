@@ -307,6 +307,9 @@ export default function (Loom, Components, Events) {
                         el.classList.add(formatClass('error', Loom.settings));
                     });
                 }
+                Events.emit(`validator.group.${group}`, {
+                    allValid: allValid
+                });
             }
         },
 
