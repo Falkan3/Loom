@@ -321,10 +321,22 @@ export default function (Loom, Components, Events) {
                     Validator.groupApplyStyles(formElement.group);
                 }
             });
+            let allValid = true; // Validator.refs.formElements.every((el) => el.valid()),
+            const validElements = [];
+            const invalidElements = []; // Validator.refs.formElements.filter((el) => !el.valid())
+            Validator.refs.formElements.forEach((el) => {
+                if (el.valid()) {
+                    validElements.push(el)
+                } else {
+                    allValid = false;
+                    invalidElements.push(el)
+                }
+            });
             return {
                 formElements: Validator.refs.formElements,
-                allValid: Validator.refs.formElements.every((el) => el.valid()),
-                // errors: Validator.refs.formElements.filter((el) => !el.valid())
+                allValid: allValid,
+                validated: validElements,
+                errors: invalidElements,
             };
         }
     };
