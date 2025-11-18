@@ -2,56 +2,51 @@
     "name": "@falkan3/loom",
     "version": "0.1.5",
     "description": "A form validation library.",
-    "author": "Adam Kocić (Falkan3)",
-    "homepage": "https://github.com/Falkan3/loom#readme",
-    "type": "module",
-    "main": "dist/js/loom.js",
-    "module": "dist/js/esm/modular/loom.esm.js",
-    "unpkg": "dist/js/loom.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Falkan3/loom.git"
-    },
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/@Falkan3"
-    },
-    "bugs": {
-        "url": "https://github.com/Falkan3/loom/issues"
-    },
-    "license": "GPL-3.0-or-later",
     "keywords": [
         "form",
         "validation",
         "library",
         "plugin"
     ],
-    "scripts": {
-        "clean": "rimraf dist",
-        "test": "jest \"tests/.*/.*\\.test\\.js\" --config jest.config.js",
-        "lint": "eslint {src,tests}/**/*.js",
-        "lint:base": "eslint src tests",
-        "lint:fix": "eslint {src,tests}/**/*.js --fix",
-        "stylelint": "stylelint src/assets/scss",
-        "stylelint:fix": "stylelint src/assets/scss --fix",
-        "scss:demo": "sass src/assets/scss/demo.scss dist/css/demo.css && sass src/assets/scss/demo.scss dist/css/demo.min.css --style=compressed",
-        "build:css": "npm run scss:demo",
-        "build:esm": "rollup --config build/esm.js && rollup --config build/esm.modular.js",
-        "build:umd": "rollup --config build/umd.js && rollup --config build/umd.min.js",
-        "build:js": "npm run build:esm && npm run build:umd",
-        "build:demo": "shx cp demo/netlify.html dist/index.html && shx cp logo-sm.svg dist/favicon.svg",
-        "build": "npm run build:css && npm run build:js && npm run build:demo",
-        "build--deprecated": "cross-env BABEL_ENV=production babel src --out-dir dist",
-        "prepublish": "npm run clean && npm run test && npm run build"
+    "homepage": "https://github.com/Falkan3/loom#readme",
+    "bugs": {
+        "url": "https://github.com/Falkan3/loom/issues"
     },
-    "watch": {
-        "test": "{src,tests}/**/*.js",
-        "build:js": "src/**/*.js",
-        "build:css": "assets/**/*.scss"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Falkan3/loom.git"
+    },
+    "license": "GPL-3.0-or-later",
+    "author": "Adam Kocić (Falkan3)",
+    "type": "module",
+    "main": "dist/js/loom.js",
+    "unpkg": "dist/js/loom.js",
+    "module": "dist/js/esm/modular/loom.esm.js",
+    "directories": {
+        "test": "tests"
     },
     "files": [
         "src",
         "dist"
     ],
+    "scripts": {
+        "build": "npm run build:css && npm run build:js && npm run build:demo",
+        "build--deprecated": "cross-env BABEL_ENV=production babel src --out-dir dist",
+        "build:css": "npm run scss:demo",
+        "build:demo": "shx cp demo/netlify.html dist/index.html && shx cp logo-sm.svg dist/favicon.svg",
+        "build:esm": "rollup --config build/esm.js && rollup --config build/esm.modular.js",
+        "build:js": "npm run build:esm && npm run build:umd",
+        "build:umd": "rollup --config build/umd.js && rollup --config build/umd.min.js",
+        "clean": "rimraf dist",
+        "lint": "eslint {src,tests}/**/*.js",
+        "lint:base": "eslint src tests",
+        "lint:fix": "eslint {src,tests}/**/*.js --fix",
+        "prepublish": "npm run clean && npm run test && npm run build",
+        "scss:demo": "sass src/assets/scss/demo.scss dist/css/demo.css && sass src/assets/scss/demo.scss dist/css/demo.min.css --style=compressed",
+        "stylelint": "stylelint src/assets/scss",
+        "stylelint:fix": "stylelint src/assets/scss --fix",
+        "test": "jest \"tests/.*/.*\\.test\\.js\" --config jest.config.js"
+    },
     "devDependencies": {
         "@babel/cli": "^7.24.1",
         "@babel/core": "^7.24.3",
@@ -95,6 +90,9 @@
         "stylelint-scss": "^6.2.1",
         "throttle-debounce": "^5.0.0"
     },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/@Falkan3"
+    },
     "abandonedDependencies": {
         "xstream": "^11.12.0",
         "@cycle/dom": "^22.7.0",
@@ -104,7 +102,9 @@
         "yargs": "^16.1.1",
         "@babel/plugin-transform-runtime": "^7.12.1"
     },
-    "directories": {
-        "test": "tests"
+    "watch": {
+        "test": "{src,tests}/**/*.js",
+        "build:js": "src/**/*.js",
+        "build:css": "assets/**/*.scss"
     }
 }
