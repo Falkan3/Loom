@@ -38,7 +38,7 @@ npm install @falkan3/loom
 
 Install via package.json:
 ```json
-"@falkan3/loom": "^0.1.0"
+"@falkan3/loom": "^0.1.5"
 ```
 
 # Usage
